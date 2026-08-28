@@ -18,13 +18,19 @@ export default async function handler(req, res) {
     );
 
     let conversationId = null;
+    let chatTranscript = '';
     if (sessionId) {
       const { data: conv } = await supabase
         .from('conversations')
-        .select('id')
+        .select('id, messages')
         .eq('session_id', sessionId)
         .single();
       conversationId = conv ? conv.id : null;
+      if (conv && Array.isArray(conv.messages) && conv.messages.length) {
+        chatTranscript = conv.messages
+          .map(m => `${m.role === 'user' ? 'Visitor' : 'Cooper'}: ${m.content}`)
+          .join('\n');
+      }
     }
 
     const { data: lead, error } = await supabase
@@ -64,7 +70,10 @@ export default async function handler(req, res) {
               `Phone: ${phone || '-'}`,
               `Business: ${businessName || '-'}`,
               `Type: ${businessType || '-'}`,
-              `Notes: ${notes || '-'}`
+              `Notes: ${notes || '-'}`,
+              '',
+              '--- Chat with Cooper ---',
+              chatTranscript || '(no chat history)'
             ].join('\n')
           })
         });
