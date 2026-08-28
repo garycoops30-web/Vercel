@@ -106,13 +106,11 @@
   .chat-input-row button{background:var(--ink);border:none;color:var(--white);font-weight:600;
     padding:0 18px;border-radius:10px;cursor:pointer;font-size:14px;}
   .chat-input-row button:hover{background:var(--blue);}
-.lead-form input{border:1px solid var(--line);border-radius:10px;padding:13px 14px;
-  font-family:'Inter',sans-serif;font-size:14px;background:var(--white);color:var(--ink);}
-.lead-form input::placeholder{color:rgba(11,15,25,0.4);}
+
   .lead-form{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:12px;text-align:left;}
   .lead-form input{border:1px solid var(--line);border-radius:10px;padding:13px 14px;
-  font-family:'Inter',sans-serif;font-size:14px;background:var(--white);color:var(--ink);}
-.lead-form input::placeholder{color:rgba(11,15,25,0.4);}
+    font-family:'Inter',sans-serif;font-size:14px;background:var(--white);color:var(--ink);}
+  .lead-form input::placeholder{color:rgba(11,15,25,0.4);}
   .lead-form input:focus-visible{outline:2px solid var(--yellow);outline-offset:1px;}
   .lead-form button{background:var(--yellow);color:var(--blue-deep);border:none;font-weight:700;
     padding:15px;border-radius:999px;font-size:15px;cursor:pointer;transition:transform .15s ease;}
@@ -279,7 +277,7 @@
       <button type="submit" id="leadSubmit">Get my automation plan</button>
       <div class="lead-status" id="leadStatus"></div>
     </form>
-    <div class="fine">© 2026 CooperAI. All rights reserved.</div>
+    <div class="fine">CooperAI — demo build, not yet live at a domain.</div>
   </div>
 </footer>
 
@@ -366,6 +364,7 @@ leadForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = document.getElementById('leadName').value.trim();
   const email = document.getElementById('leadEmail').value.trim();
+  const phone = document.getElementById('leadPhone').value.trim();
   const businessName = document.getElementById('leadBusiness').value.trim();
 
   leadSubmit.disabled = true;
@@ -381,6 +380,7 @@ leadForm.addEventListener('submit', async (e) => {
         sessionId,
         name,
         email,
+        phone,
         businessName,
         businessType: detectedBusinessType,
         notes: history.length ? 'Chatted with Cooper before submitting.' : null
