@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { sessionId, name, email, businessName, businessType, notes } = req.body || {};
+    const { sessionId, name, email, phone, businessName, businessType, notes } = req.body || {};
 
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       return res.status(400).json({ error: 'A valid email is required' });
@@ -33,6 +33,7 @@ export default async function handler(req, res) {
         conversation_id: conversationId,
         name: name || null,
         email,
+        phone: phone || null,
         business_name: businessName || null,
         business_type: businessType || null,
         notes: notes || null
@@ -60,6 +61,7 @@ export default async function handler(req, res) {
               '',
               `Name: ${name || '-'}`,
               `Email: ${email}`,
+              `Phone: ${phone || '-'}`,
               `Business: ${businessName || '-'}`,
               `Type: ${businessType || '-'}`,
               `Notes: ${notes || '-'}`
